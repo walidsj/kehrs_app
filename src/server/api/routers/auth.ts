@@ -39,21 +39,15 @@ export const authRouter = createTRPCRouter({
       const authToken = await new SignJWT()
         .setProtectedHeader({ alg: 'HS256' })
         .setIssuedAt()
-        // .setIssuer(env.NEXT_PUBLIC_BASE_URL)
-        // .setAudience(env.NEXT_PUBLIC_BASE_URL)
+        .setIssuer(env.NEXT_PUBLIC_BASE_URL)
+        .setAudience(env.NEXT_PUBLIC_BASE_URL)
         .setSubject(user.id.toString())
         .setExpirationTime(input.remember ? '30d' : '7d')
         .sign(new TextEncoder().encode(env.JWT_SECRET))
 
       ctx.res.setHeader(
         'Set-Cookie',
-        cookie.serialize('Authorization', authToken, {
-          path: '/',
-          httpOnly: true,
-          maxAge: 60 * 60 * 24 * (input.remember ? 30 : 7),
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'strict',
-        }),
+        `Authorization=${authToken}; Path=/; HttpOnly; Max-Age=${60 * 60 * 24 * (input.remember ? 30 : 7)}; Secure=${process.env.NODE_ENV === 'production' ? 'true' : 'false'}; SameSite=Strict`,
       )
 
       return true
@@ -66,13 +60,9 @@ export const authRouter = createTRPCRouter({
   logout: authProcedure.mutation(async ({ ctx }) => {
     ctx.res.setHeader(
       'Set-Cookie',
-      cookie.serialize('Authorization', '', {
-        path: '/',
-        httpOnly: true,
-        maxAge: -1,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-      }),
+      'Authorization=; Path=/; HttpOnly; Max-Age=-1; Secure=' +
+        (process.env.NODE_ENV === 'production' ? 'true' : 'false') +
+        '; SameSite=Strict',
     )
 
     return true
