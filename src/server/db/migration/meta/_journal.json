@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1739460890719,
+      "tag": "0000_abandoned_gateway",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1739464833489,
+      "tag": "0001_adorable_may_parker",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1739485348165,
+      "tag": "0002_aspiring_thunderbolt_ross",
+      "breakpoints": true
+    }
+  ]
+}
