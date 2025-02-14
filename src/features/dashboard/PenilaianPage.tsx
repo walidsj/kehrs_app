@@ -56,7 +56,7 @@ export function PenilaianPage() {
 
   const [penilaian, setPenilaian] = React.useState<PenilaianItemType[]>([])
 
-  if (penilaianData) {
+  if (penilaianData && penilaianData?.length > 0) {
     toast.success('Data penilaian sudah ada')
     router.push('/dashboard/penilaian')
   }
