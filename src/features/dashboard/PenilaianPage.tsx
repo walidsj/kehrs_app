@@ -28,6 +28,18 @@ export function PenilaianPage() {
     { id: parseInt(idPeriode) },
     { enabled: !!idPeriode },
   )
+
+  const { data: user } = api.auth.getProfile.useQuery()
+  const { data: penilaianData } = api.penilaian.getPenilaianByPeriodeAndUnit.useQuery(
+    {
+      periodePenilaianId: parseInt(idPeriode),
+      unitId: Number(user?.unitId),
+    },
+    {
+      enabled: !!periodePenilaian && !!user,
+    },
+  )
+
   const { data: pegawai } = api.pegawai.getAllPegawai.useQuery(undefined, {
     enabled: !!periodePenilaian,
   })
@@ -43,6 +55,11 @@ export function PenilaianPage() {
   })
 
   const [penilaian, setPenilaian] = React.useState<PenilaianItemType[]>([])
+
+  if (penilaianData) {
+    toast.success('Data penilaian sudah ada')
+    router.push('/dashboard/penilaian')
+  }
 
   function handleSubmit(values: PenilaianItemType[]) {
     createPenilaianMutation.mutate(values)
