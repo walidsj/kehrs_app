@@ -74,7 +74,7 @@ export function PenilaianPage() {
   }
 
   return (
-    <div className="space-y-4">
+    <form className="space-y-4" onSubmit={() => handleSubmit(penilaian)}>
       <NextSeo title="Penilaian" />
       <div className="space-y-2">
         <CardTitle>Penilaian</CardTitle>
@@ -153,12 +153,12 @@ export function PenilaianPage() {
         <TableFooter>
           <TableRow>
             <TableCell colSpan={4} className="text-center">
-              <Button onClick={() => handleSubmit(penilaian)}>Simpan</Button>
+              <Button type="submit">Simpan</Button>
             </TableCell>
           </TableRow>
         </TableFooter>
       </Table>
-    </div>
+    </form>
   )
 }
 
