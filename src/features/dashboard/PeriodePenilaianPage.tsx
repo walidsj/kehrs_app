@@ -26,14 +26,13 @@ export function PeriodePenilaianPage() {
               </CardDescription>
             </CardHeader>
             <CardFooter className="space-x-2">
-              {(new Date() > new Date(periode.mulai!) && new Date() < new Date(periode.selesai!)) ||
-                (!periode.isPenilaianExist && (
-                  <Button asChild>
-                    <Link href={`/dashboard/penilaian/${periode.id}`}>
-                      Pilih Periode <ArrowRightIcon />
-                    </Link>
-                  </Button>
-                ))}
+              {!periode.isPenilaianExist && (
+                <Button asChild>
+                  <Link href={`/dashboard/penilaian/${periode.id}`}>
+                    Pilih Periode <ArrowRightIcon />
+                  </Link>
+                </Button>
+              )}
               <Button
                 asChild
                 disabled={new Date() < new Date(periode.mulai!) || new Date() > new Date(periode.selesai!)}
