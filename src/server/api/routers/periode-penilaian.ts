@@ -7,8 +7,8 @@ export const periodePenilaianRouter = createTRPCRouter({
   getAllPeriodePenilaian: authProcedure.query(async ({ ctx }) => {
     const penilaian = await ctx.db.query.periodePenilaian.findMany()
 
-    return penilaian.map((p) => {
-      const isPenilaianExist = ctx.db.query.penilaian.findFirst({
+    return penilaian.map(async (p) => {
+      const isPenilaianExist = await ctx.db.query.penilaian.findFirst({
         where: and(
           eq(ctx.tables.penilaian.periodePenilaianId, p.id),
           eq(ctx.tables.penilaian.unitId, ctx.user.unitId!),
