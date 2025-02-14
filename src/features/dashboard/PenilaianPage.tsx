@@ -74,7 +74,13 @@ export function PenilaianPage() {
   }
 
   return (
-    <form className="space-y-4" onSubmit={() => handleSubmit(penilaian)}>
+    <form
+      className="space-y-4"
+      onSubmit={(e) => {
+        e.preventDefault()
+        handleSubmit(penilaian)
+      }}
+    >
       <NextSeo title="Penilaian" />
       <div className="space-y-2">
         <CardTitle>Penilaian</CardTitle>
