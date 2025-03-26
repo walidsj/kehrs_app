@@ -63,6 +63,7 @@ export function PenilaianPage() {
   }
 
   function handleSubmit(values: PenilaianItemType[]) {
+    console.log(values)
     createPenilaianMutation.mutate(values)
   }
 
@@ -135,7 +136,7 @@ export function PenilaianPage() {
                           {kriteria.opsiPenilaian?.map((opsi) => (
                             <div key={opsi.id} className="flex cursor-pointer items-center space-x-1">
                               <RadioGroupItem
-                                className="cursor-pointer"
+                                className="size-8 cursor-pointer"
                                 value={opsi.id.toString()}
                                 id={pegawai.id.toString() + '_' + opsi.id.toString()}
                               />
@@ -158,11 +159,19 @@ export function PenilaianPage() {
                           const indexId = (indexKriteria + 1).toString() + '.' + (indexPegawai + 1).toString()
                           const newPenilaian = penilaian.filter((item) => item.index !== indexId)
                           const currentPenilaian = penilaian.find((item) => item.index === indexId)
-                          const newCurrentPenilaian = Object.assign({}, currentPenilaian, {
-                            keterangan: e.target.value,
-                          })
 
-                          setPenilaian([...newPenilaian, newCurrentPenilaian])
+                          setPenilaian([
+                            ...newPenilaian,
+                            {
+                              index: indexId,
+                              unitId: pegawai.unitId!,
+                              pegawaiId: pegawai.id,
+                              kriteriaPenilaianId: kriteria.id,
+                              opsiPenilaianId: currentPenilaian?.opsiPenilaianId || 0,
+                              periodePenilaianId: parseInt(idPeriode),
+                              keterangan: e.target.value,
+                            },
+                          ])
                         }}
                       />
                     </TableCell>

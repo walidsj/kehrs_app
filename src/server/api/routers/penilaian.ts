@@ -21,6 +21,7 @@ export const penilaianRouter = createTRPCRouter({
           kriteriaPenilaianId: z.number(),
           opsiPenilaianId: z.number(),
           periodePenilaianId: z.number(),
+          keterangan: z.string().optional(),
         }),
       ),
     )

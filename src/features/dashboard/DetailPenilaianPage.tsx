@@ -79,6 +79,7 @@ export function DetailPenilaianPage() {
               </React.Fragment>
             ))}
             <TableHead className="text-center">Nilai</TableHead>
+            <TableHead>Keterangan</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -115,6 +116,11 @@ export function DetailPenilaianPage() {
                     )
                   })}
                   <TableCell className="text-center">{totalScore}</TableCell>
+                  <TableCell>
+                    {penilaian
+                      ?.filter((item) => item.pegawaiId === pegawai.id)
+                      .map((item, key) => `${key + 1}. ${item.keterangan}`)}
+                  </TableCell>
                 </TableRow>
               </React.Fragment>
             )
