@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm'
-import { bigint, date, mysqlTable, varchar } from 'drizzle-orm/mysql-core'
+import { bigint, date, mysqlTable, text, varchar } from 'drizzle-orm/mysql-core'
 
 export const unit = mysqlTable('unit', {
   id: bigint('id', { mode: 'number', unsigned: true }).autoincrement().primaryKey(),
@@ -47,6 +47,7 @@ export const penilaian = mysqlTable('penilaian', {
   kriteriaPenilaianId: bigint('kriteria_penilaian_id', { mode: 'number', unsigned: true }),
   opsiPenilaianId: bigint('opsi_penilaian_id', { mode: 'number', unsigned: true }),
   periodePenilaianId: bigint('periode_penilaian_id', { mode: 'number', unsigned: true }),
+  keterangan: text('keterangan'),
 })
 
 export const kriteriaPenilaianRelations = relations(kriteriaPenilaian, ({ many }) => ({

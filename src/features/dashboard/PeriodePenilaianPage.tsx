@@ -16,6 +16,13 @@ export function PeriodePenilaianPage() {
         <CardTitle>Penilaian</CardTitle>
         <CardDescription>Pilih periode penilaian</CardDescription>
       </div>
+      <Card className="bg-yellow-100">
+        <CardHeader>
+          Penilaian ini dalam rangka menetapkan best employee.
+          <br />
+          Mohon dilakukan pengisian berdasarkan hasil observasi dalam menerapkan budaya kerja.
+        </CardHeader>
+      </Card>
       <div className="grid space-y-2 md:grid-cols-3">
         {periodePenilaian?.map((periode) => (
           <Card key={periode.id}>

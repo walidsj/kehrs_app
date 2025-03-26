@@ -3,6 +3,7 @@ import { CardDescription, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Textarea } from '@/components/ui/textarea'
 import { HomeLayout } from '@/layouts/HomeLayout'
 import { api } from '@/utils/api'
 import { NextSeo } from 'next-seo'
@@ -17,6 +18,7 @@ type PenilaianItemType = {
   kriteriaPenilaianId: number
   opsiPenilaianId: number
   periodePenilaianId: number
+  keterangan?: string
 }
 
 export function PenilaianPage() {
@@ -50,15 +52,14 @@ export function PenilaianPage() {
   const createPenilaianMutation = api.penilaian.createPenilaian.useMutation({
     onSuccess: (data) => {
       toast.success(data.message + ' ' + data.affectedRows + ' data')
-      router.push('/dashboard/penilaian')
+      router.push('/dashboard/penilaian/done')
     },
   })
 
   const [penilaian, setPenilaian] = React.useState<PenilaianItemType[]>([])
 
   if (penilaianData && penilaianData?.length > 0) {
-    toast.success('Data penilaian sudah ada')
-    router.push('/dashboard/penilaian')
+    router.push('/dashboard/penilaian/done')
   }
 
   function handleSubmit(values: PenilaianItemType[]) {
@@ -148,6 +149,22 @@ export function PenilaianPage() {
                           ))}
                         </div>
                       </RadioGroup>
+                    </TableCell>
+                    <TableCell>
+                      <Textarea
+                        rows={3}
+                        placeholder="Keterangan Tambahan atas Penilaian"
+                        onChange={(e) => {
+                          const indexId = (indexKriteria + 1).toString() + '.' + (indexPegawai + 1).toString()
+                          const newPenilaian = penilaian.filter((item) => item.index !== indexId)
+                          const currentPenilaian = penilaian.find((item) => item.index === indexId)
+                          const newCurrentPenilaian = Object.assign({}, currentPenilaian, {
+                            keterangan: e.target.value,
+                          })
+
+                          setPenilaian([...newPenilaian, newCurrentPenilaian])
+                        }}
+                      />
                     </TableCell>
                     <TableCell />
                   </TableRow>
